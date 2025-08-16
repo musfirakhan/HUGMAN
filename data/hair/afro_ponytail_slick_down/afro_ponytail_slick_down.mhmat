@@ -1,0 +1,39 @@
+# Material definition for Afro
+
+afro_ponytail_slick_down
+description Afro Ponytail - Slick Down material
+ambientColor 1.0 1.0 1.0
+diffuseColor 0.5903333425521851 0.4399999976158142 0.33799999952316284
+specularColor 0.689 0.689 0.689
+shininess 0.689
+emissiveColor 0.0 0.0 0.0
+opacity 1.0
+translucency 0.0
+
+shadeless True
+wireframe True
+transparent True
+alphaToCoverage True
+backfaceCull False
+depthless False
+
+castShadows True
+
+receiveShadows True
+
+diffuseTexture AfroHairB_Specular.png
+
+normalmapIntensity 1.0
+
+shader shaders/glsl/litsphere
+
+shaderParam AdditiveShading 0.1
+
+shaderConfig diffuse True
+shaderConfig bump True
+shaderConfig normal True
+shaderConfig displacement True
+shaderConfig spec True
+shaderConfig vertexColors True
+shaderConfig transparency True
+shaderConfig ambientOcclusion True

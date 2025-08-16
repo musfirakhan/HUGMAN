@@ -1,0 +1,52 @@
+Essential Files for Transfer:
+
+CORE FILES:
+- llm.py
+- character_pipeline_viewer.py
+- character_pipeline.py
+- makehuman.py
+- animations/web_server.py
+- animations/animation_viewer.html
+- animations/text2animations.py
+- animations/blender_retargetting.py
+- animations/client.py
+
+DOCKER FILES:
+- Dockerfile
+- docker-compose.yml
+- requirements.txt
+- .dockerignore
+- DOCKER_README.md
+
+DATA FOLDERS:
+- data/clothes/
+- data/hair/
+- data/skins/
+- data/eyes/
+- data/eyebrows/
+- data/eyelashes/
+- data/teeth/
+- data/tongue/
+
+MODELS:
+- check-point1400/ (fashion model)
+- checkpoint-1000/
+- checkpoint-260/
+
+CONFIGURATION:
+- fashion_dataset.jsonl
+- dataset.json
+
+DIRECTORIES TO CREATE:
+- generated_characters/
+- output/
+- animations/
+
+EXCLUDED (don't transfer):
+- venv-39/
+- __pycache__/
+- .DS_Store
+- *.pyc files
+- generated_characters/*.json (will be created)
+- output/*.fbx (will be created)
+- animations/*.glb (will be created)

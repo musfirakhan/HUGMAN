@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  hugman:
+    build: .
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./generated_characters:/app/generated_characters
+      - ./output:/app/output
+      - ./animations:/app/animations
+      - ./data:/app/data
+    environment:
+      - PYTHONPATH=/app
+      - FLASK_APP=animations/web_server.py
+      - FLASK_ENV=production
+    restart: unless-stopped
+    container_name: hugman-character-generator

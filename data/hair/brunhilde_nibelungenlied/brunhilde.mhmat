@@ -1,0 +1,23 @@
+// brunhilde_nibelungenlied.mhmat
+
+// Color shading attributes
+diffuseColor  0.9 0.9 0.9
+specularColor  2 2 2
+shininess 0.2
+opacity 1
+
+// Textures and properties
+diffuseTexture brunhildetexture.png
+roughnessTexture brunhilderoughness.png  // Optional, if using a texture map
+
+// Shader programme
+shader data/shaders/glsl/phong  // Or switch to a PBR-compatible shader if needed
+
+// Configure built-in shader defines
+shaderConfig diffuse true
+shaderConfig bump false
+shaderConfig normal false
+shaderConfig displacement false
+shaderConfig spec false
+shaderConfig vertexColors false
+shaderConfig roughness true  // Custom define — make sure your shader handles this

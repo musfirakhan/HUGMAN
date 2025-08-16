@@ -1,0 +1,80 @@
+# MakeHuman exported MTL
+# www.makehumancommunity.org
+
+
+newmtl middleage_asian_female
+Kd 1 1 1
+Ks 0.06275 0.05098 0.05098
+d 0
+map_Kd textures/middleage_lightskinned_female_diffuse2.png
+map_D textures/middleage_lightskinned_female_diffuse2.png
+
+newmtl Eye_brown
+Kd 1 1 1
+Ks 1 1 1
+d 0
+map_Kd textures/brown_eye.png
+map_D textures/brown_eye.png
+
+newmtl heart_shirt
+Kd 0.64 0.64 0.64
+Ks 0.5 0.5 0.5
+d 0
+map_Kd textures/pink.png
+map_D textures/pink.png
+
+newmtl crude_loose_pants
+Kd 0.6299 0.6299 0.6299
+Ks 0.1 0.1 0.1
+d 0
+map_Kd textures/CrudeLoosePantsDiffuse.png
+map_D textures/CrudeLoosePantsDiffuse.png
+
+newmtl white_sneakers
+Kd 1 1 1
+Ks 0.05098 0.04706 0.04706
+d 0
+map_Kd textures/shoes05_diffuse.png
+map_D textures/shoes05_diffuse.png
+
+newmtl short02
+Kd 1 1 1
+Ks 0.05098 0.05098 0.05098
+d 0
+map_Kd textures/short02_diffuse.png
+map_D textures/short02_diffuse.png
+
+newmtl Eye_brown
+Kd 1 1 1
+Ks 1 1 1
+d 0
+map_Kd textures/brown_eye.png
+map_D textures/brown_eye.png
+
+newmtl eyebrow002
+Kd 1 1 1
+Ks 0 0 0
+d 0
+map_Kd textures/eyebrow002.png
+map_D textures/eyebrow002.png
+
+newmtl bodyMaterial
+Kd 1 1 1
+Ks 0 0 0
+d 0
+map_Kd textures/eyelashes03.png
+map_D textures/eyelashes03.png
+
+newmtl teethMaterial
+Kd 0.64 0.64 0.64
+Ks 0.8549 0.8549 0.8549
+d 0
+map_Kd textures/teeth.png
+map_D textures/teeth.png
+
+newmtl tongue01Material
+Kd 1 1 1
+Ks 0.03137 0.03137 0.03137
+d 0
+map_Kd textures/tongue01_diffuse.png
+map_D textures/tongue01_diffuse.png

@@ -1,0 +1,18 @@
+# MakeHuman theme for Qt
+version 1.2.0
+creator Jonas Hauquier
+color clear 0.1 0.1 0.1
+color grid 0.1 0.1 0.1
+color subgrid 0.1 0.1 0.1
+
+color bgbottomleft 0.0 0.0 0.0
+color bgbottomright 0.0 0.0 0.0
+color bgtopleft 0.0 0.0 0.0
+color bgtopright 0.0 0.0 0.0
+
+logwindow_color DEBUG yellow
+logwindow_color NOTICE lightblue
+logwindow_color INFO white
+logwindow_color WARNING orange
+logwindow_color ERROR red
+logwindow_color CRITICAL red

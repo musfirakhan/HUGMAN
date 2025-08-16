@@ -1,0 +1,131 @@
+////clothes/////
+crude_bra:    A white bra with a sexy, sporty, luxurious style.
+big_desert_poncho: A full body covered green dessert poncho, even head is covered too
+beach_poncho_rain_slicker: Purple hooded poncho-style cloak with a flowing shape, designed as a dramatic outer layer to be worn over undergarments.
+body_armor_shoulder_holster:  A black a jacket with a sporty, style, with black top and pants
+cargo_pants:  A black cargo pants with a formal, elegant, modern style with two pockets on the sides
+celtic_jewelled_headdress: golden colored headress with strings on it to be worn above hair
+celtic_princess_one: This long purple dress has full sleeves, a gold belt at the waist, and flows down gently for a fancy look.
+celtic_summer_skirt_and_bodice: This strapless two-piece dress shows the belly with a sleek, high-waisted skirt and a bold, modern cut.
+crude_t_shirt_female: Form-fitting white tee with short sleeves and a clean round neckline, shaped to follow the upper body’s contours.
+cutoff_t_shirt: Glossy purple crop top with short sleeves and a V-neck, made from a shiny fabric for a bold streetwear look.
+deathnote_t_shirt: Bold and vibrant long-sleeved shirt with a black base, splashed in graphic yellow-white patterns for an edgy streetwear vibe.
+female_fingernails: Fingernail accessory for female avatars.
+female_casualsuit01: Blue t-shirt, paired with classic blue jeans for a casual everyday style.
+female_casualsuit02:Blue graphic tee paired with denim shorts—casual.
+female_elegantsuit01: Red and white striped button-up shirt with long sleeves, paired with a sleek black skirt for a smart casual vibe.
+female_sportsuit01: Blue crop top with short sleeves paired with black leggings—styled for a sporty, body-hugging look that’s both sleek and casual.
+genie_one: Dark purple sleeveless top with a chest cut-out, paired with matching high-waisted pants and shoes—styled as a sleek, body-hugging digital outfit ideal for 3D modeling or virtual avatars, it has hair and shoes attached to it so keep them as none
+gi_one: Brown long-sleeved outfit with a V-neck top and waist belt, paired with matching pants—styled for a practical, fitted look suitable for virtual avatars or digital characters.
+heart_shirt: White crop top with a heart-shaped chest cutout—fitted and stylish with a playful twist.
+hermitess_one: This outfit is a deep navy blue robe-style dress with a square neckline, long flowing sleeves, and a matching waist belt—made from soft fabric and designed for elegant, full-body coverage.
+loosed_t-shirt: a purple colored lossed t shirt 
+male casual suit04: Blue t-shirt half sleeves, paired with classic blue jeans for a casual everyday style.
+male_casualsuit01: Dark blue button-up shirt with cuffed sleeves and a collar, paired with classic blue jeans and a belt—styled in a casual, everyday digital look.
+male_casualsuit05: Dark green utility-style jacket with front pockets layered over a striped top, paired with blue jeans—styled for a casual, practical digital look.
+male_casualsuit02: Blue shirt full sleeves, paired with classic blue jeans for a casual everyday style.
+male_casualsuit06: Gray short-sleeved T-shirt, paired with classic blue jeans—casual and clean-cut for digital wear.
+male_elegantsuit01: Classic black suit with a white dress shirt and striped tie—tailored in a formal style with structured shoulders and straight-cut pants, ideal for professional or digital character wear
+male_worksuit01: Blue denim overalls with black buckle straps, worn over a white short-sleeved tee—casual, utilitarian, and perfect for a relaxed digital streetwear style.
+military_poncho_hood_up: This is a black hooded poncho with a glossy, reflective finish—loose-fitting and thigh-length, made from a shiny synthetic fabric. It’s styled as a dramatic outer layer, ideal for digital fashion or futuristic avatars.
+minoan_slave_one: This digital outfit features a brown chest-covering garment with a glowing green pattern, paired with a chain necklace—styled in a minimal, symbolic fashion often seen in fantasy or sci-fi character design.
+pink_fuzzy_bathrobe_with_pink_clogs: This outfit is a long purple robe with a waist belt, long sleeves, and a chest pocket—styled in a traditional, modest cut and paired with matching purple sandals for a cohesive look, wear with under female wear 
+renaissance_oval_veil_and_wimple: renaisance style oval veil and wimkple, resembles a khimar-style head covering, flowing from the top of the head down to the mid-back, its gold colored
+sari_one: This outfit is a cultural costume sea green colored featuring a teal bra-style top, a matching long skirt, and a draped shoulder cloth—styled with traditional flair
+spartan_warrior_woman: metallic armored cuirass with a skirt, designed for a feminine avatar in fantasy or sci-fi settings
+victoria's_celtic_secret_one: A deep blue strapless bra adorned with intricate purple lace—elegant, detailed, and crafted for visual allure in digital fashion to be worn with underwear or pants
+slave_girl_metal_bra: a golden net bra 
+male_polo_shirt: A white colored polo shirt
+crude_female_underwear: a white colored female underwear
+crude_hat: A basic white digital cap with a minimalist curve—casual and unisex.
+crude_high_socks: Tall white socks extending to the knees—clean, simple, and ideal for athletic or school-style avatars.
+crude_leggings: Form-fitting white leggings with smooth contours—great for sporty or lounge-wear inspired characters.
+crude_loose_pants: Relaxed-fit white pants—casual, flowing, and suitable for everyday digital looks.
+crude_low_socks: Ankle-length white socks—subtle and versatile for modern footwear pairings.
+crude_swimsuit: One-piece white swimwear—sleek, clean-cut, and great for summer or sporty scenes.
+male_crude_t_shirt: Loose-fitting white tee with short sleeves—casual and essential for male character bases.
+male_polo_shirt: a white polo shirt
+
+
+/// accessories ///////
+
+kiki_glasses: White frame, wide temple glasses suitable for a modern female character; works well for stylish urban avatars, digital influencers, or sci-fi protagonis
+m_opticals01: Dark rectangular glasses with wide temples—suitable for a bold character
+sport_sunglasses: a cool sports sunglasses
+nose_piercing: golden nose ring
+fedora01: Classic fedora hat for stylish avatars.
+spartan_gaunlet_gloves: Glossy brown open-fingered gloves with cut-out forearms—bold, breathable, and built for stealth or style.
+spartan_warrior_greves: These are brown shin guards made from a hardened material with a smooth front and contoured ridges—functional and rugged for combat or athletic digital wear.
+scarf: a white scarf around neck 
+crude_ski_mask: Tight white ski mask—stylized and suited for edgy urban or stealth-themed avatars.
+
+
+
+////Shoes///////
+
+leather_shoes: White socks paired with brown leather shoes on a grid background—clean, classic, and digitally grounded.
+brown_leather: Worn brown leather shoes with mid-calf gray socks—earthy and weathered, grounded in digital realism.
+black_slipons: Black slip-on shoes paired with ribbed black socks—minimal, versatile, and cleanly styled for digital realism.
+black_laceup: Black lace-up shoes worn with white socks—classic contrast with a clean, grounded finish, ideal for understated digital realis
+white_sneakers: White athletic shoes with green mesh accents and gray socks—breathable and sporty, styled for digital agility or casual realism
+blue_sneakers: Blue textured sneakers with white laces and gray ankle socks—sporty, casual, and grounded for digital realism.
+combat_boots: black ankle-high boots paired with matching black socks
+
+
+
+////// Hair /////
+afro01: Short, curly hair with a soft silhouette, BLACK  
+afro_ponytail_slick_down: Dark hair styled in a smooth low ponytail—simple, elegant, curly and BLACK  
+atlantean_one: Side-swept braids cascading past the shoulders—ornate, sculpted, BROWN  
+blondwithheadband: Brown hair tied into a short ponytail with a black-and-yellow polka-dot headband  
+bob01: Short, shiny bob cut with softly defined layers, BLACK  
+bob02: Short, shiny bob cut with softly defined layers, WHITE  
+braid01: Simple braid, BROWN  
+braid_strands: A towering braided bun crafted from tight cornrows—bold, intricate, BROWN  
+brown_hair_with_bun_and_red_velvet_tie: A smooth BROWN bun secured with a red tie—classic, neat  
+four_strand_braid: Braided ponytail with artistic scalp patterns—stylized, sculptural  
+french_bob_blonde: Short, straight hair with soft BROWN and BLONDE streaks  
+hair_male_half_bald: Bald top and DARK BROWN hair around the sides  
+hair_male_spiky: Short, layered GOLDEN hair with visible ear contours  
+jade_hair: Segmented long ponytail tied with three golden bands—sleek, stylized  
+junglebookhair: Straight BLACK bangs over forehead with dark, slightly wavy hair draped over shoulders  
+littleright_hair_bobcut: Short, layered BROWN bob with soft texture  
+male_short_hair: BLACK, neatly styled short hair with visible ear contours  
+mermaid_seaweed_hair_and_dolphin_tail: Long DARK hair with GREEN streaks in two loose braids + BLUE-GREEN skirt—requires bra top  
+messy_bun: BLONDE hair styled in a sleek high bun—neatly swept  
+minoan_hairdo_one: DARK hair styled into a clean ponytail, with front strands  
+ponytail01: BROWN colored ponytail, neat  
+ponytail02: REDDISH-BROWN hair styled into a short ponytail  
+reverse_french_braid_bun_01_variation: BLACK colored stylish Reverse French Braid Bun  
+short01: Short, curly BLACK hair with a tapered fade (male)  
+short02: Short, DUST BROWN hair (male)  
+short03: Short, cropped BLACK hair with slight top volume and visible ear contours (female)  
+short04: Short, DARK hair styled combed backward, bold (male)  
+sun_king_courtesan_one: Thick, symmetrical side buns made of large BROWN coils—ornate, vintage-inspired  
+twintails: PINK hair styled into two high pigtails, highlights—vibrant, playful  
+two_braided_cornrows_female: Thick, tightly woven braids flowing down from the crown—structured, textured  
+wig_bun_blonde_female_braids: BLONDE hair styled into a high bun with intricate weaves wrapping around its base
+long01: long dark hair especially for female_sport_suit01
+
+
+
+///// eye brow ////////
+
+eyebrow001: Thin and soft curve—ideal for a gentle or introspective female character.
+eyebrow002: Arched and delicate—perfect for an expressive, curious female lead.
+eyebrow003: Thick and straight—fits a stoic, disciplined male warrior-type.
+eyebrow004: Medium curve—balanced and neutral, great for a thoughtful male scholar.
+eyebrow005: Arched with body—suits a charismatic, alert male adventurer.
+eyebrow006: Slim and curved—matches a graceful, mystical female healer.
+eyebrow007: Straight and bold—strong choice for a stern, protective male guardian.
+eyebrow008: Light arch—great for a youthful, animated female character.
+eyebrow009: Defined and straight—ideal for a focused, strategic male tactician.
+eyebrow010: Soft curvature—works well for a laid-back, grounded male artist.
+eyebrow011: Sharply arched—energetic and intense, for a dramatic male performer.
+eyebrow012: Dense and straight—suits a rugged, outdoorsy male explorer.
+
+/////// eye lashes ///////
+eyelashes01: Short — suitable for male
+eyelashes02: Medium curl — suitable for female
+eyelashes03: Thick and long — suitable for female
+eyelashes04: Thicker and longer — suitable for female

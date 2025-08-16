@@ -1,0 +1,23 @@
+# MakeHuman Material definition
+
+minoan_slave_one
+
+// Color shading attributes
+diffuseColor  0.7333 0.4021 0.1585
+specularColor  0.3094 0.9154 0.6539
+shininess 0.7843
+opacity 1
+
+// Textures and properties
+diffuseTexture minoanslave1texture.png
+
+// Shader programme
+shader data/shaders/glsl/phong
+
+// Configure built-in shader defines
+shaderConfig diffuse true
+shaderConfig bump false
+shaderConfig normal  false
+shaderConfig displacement  false
+shaderConfig spec  false
+shaderConfig vertexColors false

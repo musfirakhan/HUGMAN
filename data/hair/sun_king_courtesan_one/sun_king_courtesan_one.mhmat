@@ -1,0 +1,23 @@
+# MakeHuman Material definition
+
+sun_king_courtesan_one
+
+// Color shading attributes
+diffuseColor  0.6251 0.295 0.02727
+specularColor  1.755 0.8563 1.41
+shininess 0.7765
+opacity 1
+
+// Textures and properties
+diffuseTexture sunkingcourtesantexture.png
+
+// Shader programme
+shader data/shaders/glsl/phong
+
+// Configure built-in shader defines
+shaderConfig diffuse true
+shaderConfig bump false
+shaderConfig normal  false
+shaderConfig displacement  false
+shaderConfig spec  false
+shaderConfig vertexColors false

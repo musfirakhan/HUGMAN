@@ -1,0 +1,96 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+DOCKER_README.md
+*.md
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv-39/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs
+*.log
+pylint.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Test files
+testsuite/
+test_*.py
+*_test.py
+
+# Development scripts
+cleannpz.bat
+cleannpz.sh
+cleanpyc.bat
+cleanpyc.sh
+create_pylint_log.py
+create_transfer_package.sh
+transfer_files.txt
+
+# Large data files (can be mounted as volumes)
+
+checkpoint-1000/
+check-point1400/
+unsplash/
+
+
+# Dataset files
+*.jsonl
+dataset.json
+fashion_dataset.jsonl
+
+
+
+# Development tools
+pylintrc

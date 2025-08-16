@@ -1,0 +1,25 @@
+# MakeHuman Material definition
+
+hair_male_half_bald
+
+// Color shading attributes
+diffuseColor  0.9 0.9 0.9
+specularColor  0.5 0.5 0.5
+shininess 0.1961
+opacity 0
+
+// Textures and properties
+
+diffuseTexture hairtex.png
+
+// Shader programme
+shader data/shaders/glsl/phong
+
+// Configure built-in shader defines
+shaderConfig diffuse true
+shaderConfig bump true
+shaderConfig normal  true
+shaderConfig displacement  true
+shaderConfig spec  false
+shaderConfig vertexColors false
+shaderConfig transparency true

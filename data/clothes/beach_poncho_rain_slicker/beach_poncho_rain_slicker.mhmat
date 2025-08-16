@@ -1,0 +1,24 @@
+# MakeHuman Material definition
+
+beach_poncho_rain_slicker
+
+// Color shading attributes
+diffuseColor  0.9 0.9 0.9
+specularColor  0.8 0.8 0.8
+shininess 0.5
+opacity 1
+
+// Textures and properties
+diffuseTexture beachponchotexture.png
+
+// Shader programme
+shader data/shaders/glsl/phong
+
+// Configure built-in shader defines
+shaderConfig diffuse true
+shaderConfig bump false
+shaderConfig normal false
+shaderConfig displacement false
+shaderConfig spec false
+shaderConfig vertexColors true
+shaderConfig alphaToCoverage false

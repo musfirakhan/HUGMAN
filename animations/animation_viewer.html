@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GLB Viewer</title>
+    <link rel="icon" href="data:,"> <!-- Fixes favicon error -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #fff;
+        }
+        
+        canvas { 
+            display: block; 
+        }
+        
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: Arial;
+            text-shadow: 0 0 5px black;
+        }
+        
+        .prompt-panel {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .prompt-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .generate-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            min-width: 100px;
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .text-block {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Arial', sans-serif;
+            max-width: 80%;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .text-block.visible {
+            opacity: 1;
+        }
+        
+        .text-block h3 {
+            margin: 0 0 8px 0;
+            color: #ede2e8;
+            font-size: 1.2em;
+        }
+        
+        .text-block p {
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 600px) {
+            .prompt-panel {
+                width: calc(100% - 40px);
+                padding: 15px;
+                top: 100px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .generate-btn {
+                width: 100%;
+            }
+        }
+
+        .hugman-block {
+            position: absolute;
+            top: 29px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.8em;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(118, 75, 162, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 9;
+            width: fit-content;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HUGMAN Text Block -->
+    <div class="hugman-block">
+        HUGMAN
+    </div>
+    <!-- Single Prompt Panel -->
+    <div class="prompt-panel">
+        <div class="input-group">
+            <input 
+                type="text" 
+                id="prompt-input" 
+                class="prompt-input" 
+                placeholder="Enter your prompt (e.g., A cute girl waving)"
+                value=" "
+            >
+            <button id="generate-btn" class="generate-btn">Generate</button>
+        </div>
+    </div>
+    <div id="info">Loading model...</div>
+
+
+    <script>
+        // Global variables
+        let scene, camera, renderer, controls, mixer, clock;
+        let currentModel = null;
+        let isPaused = false;
+        let isLoading = false;
+        let fileCheckInterval;
+        let initialLoadAttempted = false;
+
+        // DOM elements
+        const textBlock = document.getElementById('text-block');
+        const titleElement = document.getElementById('animation-title');
+        const descElement = document.getElementById('animation-description');
+        const promptInput = document.getElementById('prompt-input');
+        const generateBtn = document.getElementById('generate-btn');
+        const infoElement = document.getElementById('info');
+
+        // Initialize scene
+        function initScene() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xFFFFFF);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 2, 8); // Better initial position
+            
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Add lights (your existing setup)
+            const keyLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            keyLight.position.set(5, 5, 5);
+            keyLight.castShadow = true;
+            keyLight.shadow.mapSize.width = 2048;
+            keyLight.shadow.mapSize.height = 2048;
+            scene.add(keyLight);
+
+            const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            fillLight.position.set(-5, 3, 2);
+            scene.add(fillLight);
+
+            const rimLight = new THREE.DirectionalLight(0xffffff, 0.6);
+            rimLight.position.set(2, 3, -5);
+            scene.add(rimLight);
+
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+            scene.add(ambientLight);
+
+            const topLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            topLight.position.set(0, 10, 0);
+            scene.add(topLight);
+
+            const sideLightLeft = new THREE.DirectionalLight(0xffffff, 0.5);
+            sideLightLeft.position.set(-10, 2, 0);
+            scene.add(sideLightLeft);
+
+            const sideLightRight = new THREE.DirectionalLight(0xffffff, 0.3);
+            sideLightRight.position.set(10, 2, 0);
+            scene.add(sideLightRight);
+
+            const backLight = new THREE.DirectionalLight(0xffffff, 0.4);
+            backLight.position.set(0, 2, -10);
+            scene.add(backLight);
+
+            const cameraLight = new THREE.PointLight(0xffffff, 0.4, 10);
+            cameraLight.position.set(0, 3, 5);
+            scene.add(cameraLight);
+
+            // Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.target.set(0, 0, 0); // Set initial target
+
+            // Clock for animations
+            clock = new THREE.Clock();
+
+            // Start animation loop
+            animate();
+        }
+
+        function loadModel(prompt, modelPath = 'action.glb') {
+            if (isLoading) return;
+            
+            isLoading = true;
+            updateLoadingState(true);
+            
+            // Add cache-busting parameter
+            const cacheBustedPath = `${modelPath}?t=${Date.now()}`;
+            console.log('Loading model:', cacheBustedPath);
+
+            const loader = new THREE.GLTFLoader();
+            
+            loader.load(
+                cacheBustedPath,
+                (gltf) => {
+                    console.log('Model loaded successfully');
+                    handleSuccessfulLoad(gltf);
+                },
+                (progress) => {
+                    const percent = (progress.loaded / progress.total * 100) || 0;
+                    infoElement.textContent = `Loading... ${Math.round(percent)}%`;
+                },
+                (error) => {
+                    console.error('Error loading model:', error);
+                    if (!initialLoadAttempted) {
+                        // First load failed, start checking for file creation
+                        startFileChecking();
+                    }
+                    infoElement.textContent = `Waiting for model to be generated...`;
+                    updateLoadingState(false);
+                }
+            );
+        }
+
+        function handleSuccessfulLoad(gltf) {
+            // Remove existing model
+            if (currentModel) {
+                scene.remove(currentModel);
+            }
+
+            // Add new model
+            currentModel = gltf.scene;
+            scene.add(currentModel);
+            
+            // Center model and adjust camera
+            const box = new THREE.Box3().setFromObject(currentModel);
+            const center = box.getCenter(new THREE.Vector3());
+            currentModel.position.sub(center);
+            
+            const size = box.getSize(new THREE.Vector3());
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const distance = maxDim * 3;
+            camera.position.set(0, distance * 0.5, distance);
+            camera.lookAt(0, 0, 0);
+            
+            controls.target.set(0, 0, 0);
+            controls.update();
+            
+            // Handle animations
+            if (gltf.animations?.length) {
+                mixer = new THREE.AnimationMixer(currentModel);
+                const action = mixer.clipAction(gltf.animations[0]);
+                action.play();
+            }
+
+            // Show UI elements
+            textBlock.classList.add('visible');
+            updateLoadingState(false);
+            initialLoadAttempted = true;
+            stopFileChecking();
+        }
+
+        function checkForFileExistence() {
+            fetch('/check-file-exists')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        console.log('Model file now exists, loading...');
+                        loadModel("", "action.glb");
+                        stopFileChecking();
+                    }
+                })
+                .catch(error => {
+                    console.log('File check error:', error);
+                });
+        }
+
+        function startFileChecking() {
+            // Check every second for file existence
+            fileCheckInterval = setInterval(checkForFileExistence, 1000);
+            infoElement.textContent = 'Waiting for model generation...';
+        }
+
+        function stopFileChecking() {
+            if (fileCheckInterval) {
+                clearInterval(fileCheckInterval);
+                fileCheckInterval = null;
+            }
+        }
+
+        function updateLoadingState(loading) {
+            isLoading = loading;
+            generateBtn.disabled = loading;
+            
+            if (loading) {
+                generateBtn.innerHTML = '<span class="loading-spinner"></span>Loading...';
+                infoElement.textContent = 'Loading model...';
+            } else {
+                generateBtn.textContent = 'Generate';
+                infoElement.textContent = '';
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (mixer && !isPaused) {
+                mixer.update(clock.getDelta());
+            }
+            
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Event handlers
+        function handleGenerate() {
+            const prompt = promptInput.value.trim();
+            if (!prompt || isLoading) {
+                console.log('Generate blocked - no prompt or already loading');
+                return;
+            }
+
+            console.log('Generating for prompt:', prompt);
+            updateLoadingState(true);
+            infoElement.textContent = 'Generating character...';
+
+            // First, clear any existing model
+            if (currentModel) {
+                scene.remove(currentModel);
+                currentModel = null;
+            }
+
+            // Call the character generation script
+            fetch('/generate-character', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt: prompt })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    infoElement.textContent = 'Character generated! Loading...';
+                    // Start actively checking for the new file
+                    startActiveFileChecking();
+                } else {
+                    infoElement.textContent = `Error: ${data.error || 'Unknown error'}`;
+                    updateLoadingState(false);
+                }
+            })
+            .catch(error => {
+                console.error('Generate error:', error);
+                infoElement.textContent = 'Error generating character. Please try again.';
+                updateLoadingState(false);
+            });
+        }
+
+        function startActiveFileChecking() {
+            // More aggressive checking during generation
+            let attempts = 0;
+            const maxAttempts = 30; // 30 attempts (30 seconds total)
+            const checkInterval = 1000; // 1 second
+            
+            const checkFile = () => {
+                fetch('/check-file-update?' + Date.now()) // Cache busting
+                    .then(response => response.json())
+                    .then(data => {
+                        attempts++;
+                        
+                        if (data.exists && data.fileSize > 0) {
+                            console.log('File is ready, loading model');
+                            loadModel("", "action.glb?" + Date.now());
+                            return;
+                        }
+                        
+                        if (attempts >= maxAttempts) {
+                            infoElement.textContent = 'Timeout waiting for model generation';
+                            updateLoadingState(false);
+                            return;
+                        }
+                        
+                        infoElement.textContent = `Generating... (${attempts}/${maxAttempts})`;
+                        setTimeout(checkFile, checkInterval);
+                    })
+                    .catch(error => {
+                        console.error('File check error:', error);
+                        if (attempts < maxAttempts) {
+                            setTimeout(checkFile, checkInterval);
+                        }
+                    });
+            };
+            
+            checkFile();
+        }
+
+        function handleKeydown(event) {
+            // Don't capture spacebar if user is typing in input fields
+            if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            if (event.code === 'Space') {
+                event.preventDefault();
+                isPaused = !isPaused;
+                
+                // Update description based on pause state
+                if (currentModel) {
+                    descElement.textContent = isPaused ? 
+                        "Animation paused. Press spacebar to resume." : 
+                        "Use spacebar to play/pause • Mouse to rotate • Scroll to zoom";
+                }
+            }
+        }
+
+        function handleResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        
+        // Event listeners
+        generateBtn.addEventListener('click', handleGenerate);
+        promptInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleGenerate();
+        });
+        window.addEventListener('keydown', handleKeydown);
+        window.addEventListener('resize', handleResize);
+
+        // Initialize everything
+        initScene();
+
+        // Try initial load - if fails, will start file checking
+        loadModel("", "action.glb");
+
+        // Cleanup
+        window.addEventListener('beforeunload', stopFileChecking);
+    </script>
+</body>
+</html>

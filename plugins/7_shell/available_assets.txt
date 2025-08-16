@@ -1,0 +1,120 @@
+# MakeHuman Assets Directory
+# This guide lists ALL available assets with descriptions
+
+# =============================================================================
+#                                   SKINS
+# =============================================================================
+Available Paths:
+# Young Age Group
+skins/young_african_female.mhmat
+skins/young_african_male.mhmat
+skins/young_asian_female.mhmat
+skins/young_asian_male.mhmat
+skins/young_caucasian_female.mhmat
+skins/young_caucasian_male.mhmat
+
+# Middle Age Group
+skins/middleage_african_female.mhmat
+skins/middleage_african_male.mhmat
+skins/middleage_asian_female.mhmat
+skins/middleage_asian_male.mhmat
+skins/middleage_caucasian_female.mhmat
+skins/middleage_caucasian_male.mhmat
+
+# Old Age Group
+skins/old_african_female.mhmat
+skins/old_african_male.mhmat
+skins/old_asian_female.mhmat
+skins/old_asian_male.mhmat
+skins/old_caucasian_female.mhmat
+skins/old_caucasian_male.mhmat
+
+# Special Skins
+skins/toon01.mhmat
+
+
+
+# =============================================================================
+#                                  CLOTHES
+# =============================================================================
+Available Paths:
+# Female Clothing
+clothes/female_casualsuit01.mhclo
+clothes/female_casualsuit02.mhclo
+clothes/female_elegantsuit01.mhclo
+clothes/female_sportsuit01.mhclo
+
+# Male Clothing
+clothes/male_casualsuit01.mhclo
+clothes/male_casualsuit02.mhclo
+clothes/male_casualsuit03.mhclo
+clothes/male_casualsuit04.mhclo
+clothes/male_casualsuit05.mhclo
+clothes/male_casualsuit06.mhclo
+clothes/male_elegantsuit01.mhclo
+clothes/male_worksuit01.mhclo
+
+
+
+# =============================================================================
+#                                   HAIR
+# =============================================================================
+Available Paths:
+hair/bob01.mhpxy
+hair/bob02.mhpxy
+hair/long01.mhpxy
+hair/ponytail01.mhpxy
+hair/short01.mhpxy
+hair/short02.mhpxy
+hair/short03.mhpxy
+hair/short04.mhpxy
+hair/afro01.mhpxy
+hair/braid01.mhpxy
+
+
+
+# =============================================================================
+#                                   EYES
+# =============================================================================
+Available Paths:
+eyes/high-poly.mhpxy
+eyes/low-poly.mhpxy
+
+
+# =============================================================================
+#                                  TEETH
+# =============================================================================
+Available Paths:
+teeth/teeth_base.mhpxy
+teeth/teeth_shape01.mhpxy
+teeth/teeth_shape02.mhpxy
+teeth/teeth_shape03.mhpxy
+teeth/teeth_shape04.mhpxy
+teeth/teeth_shape05.mhpxy
+
+
+# =============================================================================
+#                                 TONGUE
+# =============================================================================
+Available Paths:
+tongue/tongue01.mhpxy
+
+
+# =============================================================================
+#                                SKELETONS
+# =============================================================================
+Available Paths:
+rigs/game_engine.mhskel
+rigs/default.mhskel
+rigs/default_no_toes.mhskel
+
+
+# =============================================================================
+#                                   SHOES
+# =============================================================================
+Available Paths:
+clothes/shoes01.mhclo
+clothes/shoes02.mhclo
+clothes/shoes03.mhclo
+clothes/shoes05.mhclo
+clothes/shoes06.mhclo

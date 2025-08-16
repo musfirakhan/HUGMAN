@@ -1,0 +1,31 @@
+# Material definition for twintails
+
+twintails
+description Twintails material
+ambientColor 0.0 0.0 0.0
+diffuseColor 0.9921568627450981 0.4 0.4
+specularColor 0.9921568627450981 0.4 1.0
+shininess 0.5
+emissiveColor 0.0 0.0 0.0
+opacity 1.0
+translucency 0.0
+
+shadeless False
+wireframe False
+transparent False
+alphaToCoverage True
+backfaceCull False
+depthless False
+
+castShadows True
+
+receiveShadows True
+
+shaderConfig diffuse True
+shaderConfig bump True
+shaderConfig normal True
+shaderConfig displacement True
+shaderConfig spec True
+shaderConfig vertexColors True
+shaderConfig transparency True
+shaderConfig ambientOcclusion True

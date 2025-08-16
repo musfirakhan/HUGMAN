@@ -1,0 +1,22 @@
+# This is a clothes file for MakeHuman Community, exported by MakeClothes 2
+#
+# author: WojackOWL
+# license: CC-BY
+#
+two_braided_cornrows_female
+
+// Color shading attributes
+diffuseColor  0.8000 0.8000 0.8000
+specularColor  0.0000 0.0000 0.0000
+shininess 0.0000
+opacity 1
+
+// Textures
+
+diffuseTexture BHL_AfroHair_Test_BaseColor_Alpha.png
+// Settings
+
+transparent False
+alphaToCoverage True
+backfaceCull False
+depthless False

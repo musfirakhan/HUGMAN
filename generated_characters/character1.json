@@ -1,0 +1,24 @@
+{
+    "name": "jessie",
+    "gender": 0,
+    "age": 0.6,
+    "weight": 0.4,
+    "muscle": 0.5,
+    "height": 0.5,
+    "caucasian": 1,
+    "african": 0,
+    "asian": 0,
+    "skin": "middleage_caucasian_female",
+    "clothes": [
+        "female_sportsuit01"
+    ],
+    "shoes": "blue_sneakers",
+    "hair": "ponytail01",
+    "eyes": "low-poly",
+    "eyebrow": "eyebrow002",
+    "eyelash": "eyelashes02",
+    "teeth": "teeth_base",
+    "tongue": "tongue01",
+    "skeleton": "game_engine",
+    "export_path": "/Users/musfiraaslam/Desktop/makehuman-mastercopy42/3d-model/output/jessie.fbx"
+}
