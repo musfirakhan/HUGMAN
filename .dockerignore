@@ -3,10 +3,6 @@
 .gitignore
 .gitattributes
 
-# Documentation
-README.md
-DOCKER_README.md
-*.md
 
 # Development files
 .vscode/
@@ -84,11 +80,6 @@ checkpoint-1000/
 check-point1400/
 unsplash/
 
-
-# Dataset files
-*.jsonl
-dataset.json
-fashion_dataset.jsonl
 
 
 
