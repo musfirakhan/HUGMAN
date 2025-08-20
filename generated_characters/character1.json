@@ -1,24 +1,24 @@
 {
-    "name": "jessie",
-    "gender": 0,
+    "name": "john",
+    "gender": 1,
     "age": 0.6,
-    "weight": 0.4,
+    "weight": 0.7,
     "muscle": 0.5,
-    "height": 0.5,
-    "caucasian": 1,
+    "height": 0.4,
+    "caucasian": 0.8,
     "african": 0,
-    "asian": 0,
-    "skin": "middleage_caucasian_female",
+    "asian": 0.2,
+    "skin": "middleage_asian_male",
     "clothes": [
-        "female_sportsuit01"
+        "male_worksuit01"
     ],
-    "shoes": "blue_sneakers",
-    "hair": "ponytail01",
+    "shoes": "black_slipons",
+    "hair": "short03",
     "eyes": "low-poly",
-    "eyebrow": "eyebrow002",
+    "eyebrow": "eyebrow004",
     "eyelash": "eyelashes02",
     "teeth": "teeth_base",
     "tongue": "tongue01",
     "skeleton": "game_engine",
-    "export_path": "/Users/musfiraaslam/Desktop/makehuman-mastercopy42/3d-model/output/jessie.fbx"
+    "export_path": "output/john.fbx"
 }

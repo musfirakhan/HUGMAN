@@ -2,8 +2,15 @@
 flask
 ollama
 transformers
-torch
-numpy>=1.17.4
+requests
+pyqtgraph
+
+numpy
+scipy
+matplotlib
+scikit-learn
+
+# 3D graphics and visualization
 PyQt5>=5.12.8
 PyOpenGL>=3.1.0
 pygame==2.5.2
@@ -12,33 +19,22 @@ moderngl-window>=2.4.0
 pywavefront
 pyrr>=0.10.3
 pyglet<2
-torchvision 
-torchaudio
-requests
-pillow
-pyqtgraph
 trimesh
+
+pillow==9.2.0
+
 fuzzywuzzy
 python-levenshtein
-scipy
-matplotlib
 
-# Development and utility dependencies
-pathlib
-threading
-subprocess
-json
-os
-sys
-re
-glob
-time
-argparse
-io
-shutil
-zipfile
-fnmatch
-importlib
+# AI and machine learning
+torch
+diffusers
+accelerate
+
+# Computer vision
+opencv-python
+
+
 
 
 

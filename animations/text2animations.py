@@ -10,9 +10,11 @@ ollama_client = ollama.Client()
 
 # Use current working directory
 SCRIPT_DIR = os.getcwd()
-CLIENT_SCRIPT=os.path.join(SCRIPT_DIR, "animations", "client.py")
 BLENDER_RUNNER = os.path.join(SCRIPT_DIR, "animations", "blender_retargetting.py")
 CHARACTER_JSON = os.path.join(SCRIPT_DIR, "generated_characters", "character1.json")
+
+# Import the animation generator
+from animation_generator import generate_bvh_animation
 
 def clean_llm_json_response(json_str):
     json_str = re.sub(r"^```[a-zA-Z]*\n?", "", json_str.strip())
@@ -79,7 +81,7 @@ def run_blender(blender_path, action_prompt):
     # Get data from JSON
     dae_path = character_data.get('export_path')
     name = character_data.get('name')
-    print("Name of character", name)
+
     
     # Validate JSON fields
     if not dae_path:
@@ -96,7 +98,11 @@ def run_blender(blender_path, action_prompt):
     if action_prompt:
         action=True
         animation_path = os.path.join(SCRIPT_DIR, "animations", f"{name}_action.bvh")
-        subprocess.run([sys.executable, CLIENT_SCRIPT, action_prompt, animation_path], check=True)
+        # Use animation generator instead of client script
+        result = generate_bvh_animation(action_prompt, f"{name}_action")
+        if not result:
+            print(f"Error: Failed to generate animation for '{action_prompt}'")
+            return False
     else:
         action=False
         animation_path = ""  # No animation path when no action
@@ -119,13 +125,13 @@ def run_blender(blender_path, action_prompt):
 
     try:
         subprocess.run([
-            blender_path,
-            "--background", 
+            blender_path, 
+            "--background",	
             "--python", BLENDER_RUNNER,
             "--",  
-            dae_path,
+            f"C:/Users/KHAN/Desktop/assets-mhc/game/RunTheBridge/HUGMAN/output/{name}.dae",
             name,
-            animation_path,
+            f"C:/Users/KHAN/Desktop/assets-mhc/game/RunTheBridge/HUGMAN/animations/{name}_action.bvh",
             str(bool(action_prompt))
         ], check=True)
         print("Blender processing completed successfully")
@@ -149,7 +155,7 @@ def main(prompt: str):
     else:
         print("No action detected - will generate static character only")
     
-    run_blender("/Applications/Blender.app/Contents/MacOS/Blender", action_prompt)
+    run_blender(r"C:\Program Files\Blender Foundation\Blender 2.82\blender.exe", action_prompt)
     
 
 if __name__ == "__main__":

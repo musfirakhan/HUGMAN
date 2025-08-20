@@ -17,7 +17,7 @@ app = Flask(__name__)
 # Configuration
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ACTION_GLB_PATH = os.path.join(SCRIPT_DIR, 'action.glb')
-CHARACTER_PIPELINE = "character_pipeline_viewer.py"
+CHARACTER_PIPELINE = "hugman.py"
 
 # Track file generation status
 file_generation_in_progress = False

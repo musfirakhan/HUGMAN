@@ -1,3 +1,4 @@
+from pickle import TRUE
 import bpy
 from mathutils import Vector
 import os
@@ -58,7 +59,7 @@ def load_rig(filepath: str, name: str):
     """Load a rig from an FBX file"""
     bpy.ops.wm.collada_import(filepath=filepath)
     rig = bpy.context.active_object
-    #rig.name = name
+   #rig.name = name
     return rig
 
 
@@ -85,29 +86,59 @@ def push_action_to_nla(armature, action_name):
     return nla_strip.frame_end
  
 def export_glb(export_path, name):
+    """Export character as GLB"""
+
+    # Use proper path joining
+    output_path = os.path.join(export_path, "character.glb")	
+    
     bpy.ops.export_scene.gltf(
-        filepath=f"{export_path}/character.glb"
+        filepath=output_path,
+        export_format='GLB',
+        export_materials=True,
+        export_cameras=False,
+        export_lights=False,
+        export_animations=False,
+        export_apply=True
     )
 
 def export_animation(end_time, export_path, name, action):
-    bpy.context.scene.frame_end=int(end_time)
+    """Export animation as GLB"""
+    
+    # Use proper path joining
+    output_path = os.path.join(export_path, "action.glb")
+    
+    bpy.context.scene.frame_end = int(end_time)
     bpy.ops.export_scene.gltf(
-        filepath=f"{export_path}/{action}.glb"
+        filepath=output_path,
+        export_format='GLB',
+        export_materials=True,
+        export_cameras=False,
+        export_lights=False,
+        export_animations=True,
+        export_apply=True
     )
-
+    
 def load_fbx(filepath: str):
     """Load a rig from an FBX file"""
     base, _ = os.path.splitext(filepath)
     path=base + ".fbx"
-    bpy.ops.import_scene.fbx(filepath=path)
+    bpy.ops.import_scene.fbx(
+        filepath=path,
+        use_anim=False,
+        ignore_leaf_bones=True,
+        automatic_bone_orientation=True,
+        directory=os.path.dirname(path),  # Important for texture paths
+        use_image_search=True,  # Search for textures in subfolders
+        use_custom_props=True,
+        use_custom_props_enum_as_string=True,
+    )
     rig = bpy.context.active_object
-    rig.name = "lala"
     rig.show_in_front = True
     return rig
 
 def main(character_path, character_name, animation_path, action):
     animation_name="action"
-    export_path= os.path.join(os.getcwd(), "animations")
+    export_path= r"C:\Users\KHAN\Desktop\assets-mhc\game\RunTheBridge\HUGMAN\animations"
     # clear_scene()
     # load_fbx(character_path)
     # bpy.ops.object.select_all(action='DESELECT')
@@ -126,18 +157,16 @@ def main(character_path, character_name, animation_path, action):
         bpy.ops.object.delete()
         action_armature.hide_set(True)
         end_frame=push_action_to_nla(target_armature, f'{animation_name}_action')
-        retarget_rokoko(target_armature,action_armature)
         export_animation(end_frame, export_path, character_name, animation_name)
-    else: 
+
+        clear_scene()
         target_armature = load_rig(character_path, character_name)
         target_armature = bpy.data.objects[character_name]
+        bpy.ops.object.select_all(action='DESELECT')
         eye=bpy.data.objects[f"{character_name}-highpolyeyes"]
         eye.select_set(True)
         bpy.ops.object.delete()
         export_glb(export_path,character_name)
-    bpy.ops.wm.quit_blender()
-
-
 
 if __name__ == "__main__":
     # Parse arguments from command line

@@ -44,8 +44,8 @@ def clean_output_folders(output_folder: str, animations_folder: str):
     return True
 
 if __name__ == "__main__":
-    OUTPUT_FOLDER = "/Users/musfiraaslam/Desktop/makehuman-mastercopy42/3d-model/output"
-    ANIMATIONS_FOLDER = "/Users/musfiraaslam/Desktop/makehuman-mastercopy42/3d-model/animations"
+    OUTPUT_FOLDER = "output"
+    ANIMATIONS_FOLDER = "animations"
     
     success = clean_output_folders(OUTPUT_FOLDER, ANIMATIONS_FOLDER)
     exit(0 if success else 1)

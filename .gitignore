@@ -1,3 +1,29 @@
+# Model weights and large files
+fashionmodel_path/
+animations/momask-codes-main/checkpoints/
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Generated outputs
+output/
+generated_characters/
+animations/files/
+animations/*.bvh
+animations/*.glb
+animations/*.mp4
+
+# Development and testing files
+animations/web_server.py
+animations/animation_viewer.html
+
+
 # Python
 __pycache__/
 *.py[cod]
@@ -21,13 +47,8 @@ wheels/
 *.egg
 MANIFEST
 
-# Virtual environments
+# Virtual environment
 venv-39/
-venv/
-env/
-ENV/
-env.bak/
-venv.bak/
 
 # IDE
 .vscode/
@@ -45,71 +66,43 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Project specific
-
-checkpoint-1000/
-check-point1400/
-
-
 # Logs
 *.log
-pylint.log
+logs/
+userdata/makehuman.log
+userdata/python_err.txt
+userdata/python_out.txt
+userdata/makehuman-debug.txt
 
 # Temporary files
 *.tmp
 *.temp
 *.bak
-
-
-
-# Compiled files
-*.pyc
-*.pyo
-*.pyd
+*.backup
 
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
+# PyTorch
+*.pth
+*.pt
 
-# pipenv
-Pipfile.lock
+# TensorFlow
+*.pb
+*.meta
+*.index
+*.data-*
 
-# PEP 582
-__pypackages__/
+# MoMask specific
+animations/momask-codes-main/generation/
+animations/momask-codes-main/example_data/
 
-# Celery
-celerybeat-schedule
-celerybeat.pid
+# MakeHuman specific
+userdata/data/
+userdata/plugins/
 
-# SageMath parsed files
-*.sage.py
 
-# Environments
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+config.ini
+secrets.json
 
