@@ -5,7 +5,8 @@ transformers
 requests
 pyqtgraph
 
-numpy
+# Scientific computing (compatible versions)
+numpy>=1.24.0,<2.0.0
 scipy
 matplotlib
 scikit-learn
@@ -26,13 +27,13 @@ pillow==9.2.0
 fuzzywuzzy
 python-levenshtein
 
-# AI and machine learning
-torch
-diffusers
-accelerate
+# AI and machine learning (compatible versions)
+torch>=2.0.0
+diffusers>=0.21.0
+accelerate>=0.20.0
 
 # Computer vision
-opencv-python
+opencv-python>=4.8.0
 
 
 

@@ -7,6 +7,22 @@ from PIL import Image
 import ollama
 import re
 
+# Try to import Stable Diffusion dependencies, but make them optional
+STABLE_DIFFUSION_AVAILABLE = False
+try:
+    import cv2
+    import numpy as np
+    import torch
+    from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
+    STABLE_DIFFUSION_AVAILABLE = True
+    print("Stable Diffusion dependencies loaded successfully!")
+except ImportError as e:
+    print(f"Stable Diffusion dependencies not available: {e}")
+    print("Will use Unsplash fallback for texture generation.")
+except Exception as e:
+    print(f"Error loading Stable Diffusion: {e}")
+    print("Will use Unsplash fallback for texture generation.")
+
 # Define paths
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 CHARACTER_JSON = os.path.join(SCRIPT_DIR, "generated_characters", "character1.json")
@@ -15,6 +31,91 @@ UNSPLASH_ACCESS_KEY = "beNvkEhxp23Xg8GrplOv5ywLNgEEkV7DfmPywwwoACg"
 # Initialize Ollama client and model
 ollama_model = "llama3.2"
 ollama_client = ollama.Client()
+
+# Initialize Stable Diffusion pipeline (lazy loading)
+stable_diffusion_pipeline = None
+controlnet_model = None
+
+def initialize_stable_diffusion():
+    """Initialize Stable Diffusion ControlNet pipeline"""
+    global stable_diffusion_pipeline, controlnet_model
+    
+    if not STABLE_DIFFUSION_AVAILABLE:
+        print("Stable Diffusion not available - skipping AI generation")
+        return False
+    
+    if stable_diffusion_pipeline is None:
+        try:
+            print("Initializing Stable Diffusion ControlNet...")
+            controlnet_model = ControlNetModel.from_pretrained(
+                "lllyasviel/sd-controlnet-canny",
+                torch_dtype=torch.float16
+            )
+            
+            stable_diffusion_pipeline = StableDiffusionControlNetPipeline.from_pretrained(
+                "runwayml/stable-diffusion-v1-5",
+                controlnet=controlnet_model,
+                torch_dtype=torch.float16
+            ).to("cuda")
+            
+            print("Stable Diffusion initialized successfully!")
+        except Exception as e:
+            print(f"Error initializing Stable Diffusion: {e}")
+            return False
+    return True
+
+def generate_texture_with_stable_diffusion(image_path, texture_query, output_path):
+    """Generate texture using Stable Diffusion ControlNet"""
+    if not initialize_stable_diffusion():
+        print("Failed to initialize Stable Diffusion")
+        return False
+    
+    try:
+        # Load and prepare input image
+        input_image = cv2.imread(image_path)
+        if input_image is None:
+            print(f"Could not load image: {image_path}")
+            return False
+            
+        input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
+        height, width = input_image.shape[:2]
+        
+        # Create edge detection for ControlNet
+        gray = cv2.cvtColor(input_image, cv2.COLOR_RGB2GRAY)
+        edges = cv2.Canny(gray, 100, 200)
+        
+        # Create a mask for the entire image (or specific regions)
+        mask = np.ones((height, width), dtype=np.uint8) * 255
+        
+        # Apply mask to edges
+        edges = cv2.bitwise_and(edges, mask)
+        
+        # Prepare prompt for texture generation
+        prompt = f"high quality {texture_query} texture, detailed fabric pattern, realistic material, 4K, seamless"
+        negative_prompt = "blurry, low quality, plain color, cartoon, illustration, watermark, text"
+        
+        # Generate texture
+        generator = torch.Generator(device="cuda").manual_seed(42)
+        
+        output = stable_diffusion_pipeline(
+            prompt,
+            image=Image.fromarray(edges),
+            negative_prompt=negative_prompt,
+            generator=generator,
+            num_inference_steps=30,
+            controlnet_conditioning_scale=0.8,
+            height=height,
+            width=width
+        ).images[0]
+        
+        # Save the generated texture
+        output.save(output_path)
+        print(f"Generated texture saved to: {output_path}")
+        return True
+        
+    except Exception as e:
+        print(f"Error generating texture with Stable Diffusion: {e}")
+        return False
 
 def clean_llm_json_response(json_str):
     json_str = re.sub(r"^```[a-zA-Z]*\n?", "", json_str.strip())
@@ -39,12 +140,18 @@ def analyze_prompt_with_llama(prompt):
     1. Determine if the description includes a specific texture, color, or material for any item.
     2. Identify the items from the following list: {clothes_list}. 
     3. For each identified item, generate a texture search query using the provided color/material/texture and the item name.
+    4. Determine if the texture should be generated using AI (Stable Diffusion) or searched from Unsplash.
 
     Respond in the following JSON format:
     {{
         "answer": True/False,
         "clothing_items": [
-            {{"item": "item_name", "texture_query": "query_for_texture"}},
+            {{
+                "item": "item_name", 
+                "texture_query": "query_for_texture",
+                "use_ai_generation": True/False,
+                "ai_prompt": "detailed AI prompt for texture generation"
+            }},
             ...
         ]
     }}
@@ -90,6 +197,38 @@ def replace_texture_file(old_texture_path, new_texture_url):
     else:
         print(f"Failed to download new texture from: {new_texture_url}")
 
+def process_texture_generation(clothing_item, texture_query, use_ai_generation, ai_prompt, texture_file):
+    """Process texture generation using either AI or Unsplash"""
+    
+    # Always try AI generation first if available, regardless of LLM decision
+    if STABLE_DIFFUSION_AVAILABLE:
+        print(f"Attempting AI texture generation for: {clothing_item}")
+        print(f"AI Prompt: {ai_prompt or texture_query}")
+        
+        # Try AI generation first
+        success = generate_texture_with_stable_diffusion(
+            texture_file, 
+            ai_prompt or texture_query, 
+            texture_file
+        )
+        
+        if success:
+            print(f"Successfully generated AI texture for: {clothing_item}")
+            return True
+        else:
+            print(f"AI generation failed, falling back to Unsplash")
+    
+    # Fallback to Unsplash
+    print(f"Searching Unsplash for texture: {texture_query}")
+    new_texture_url = search_unsplash(texture_query)
+    if new_texture_url:
+        replace_texture_file(texture_file, new_texture_url)
+        print(f"Successfully applied Unsplash texture for: {clothing_item}")
+        return True
+    else:
+        print(f"No suitable texture found on Unsplash for query: {texture_query}")
+        return False
+
 def main(prompt):
     print(f"Processing prompt: {prompt}")
 
@@ -108,6 +247,8 @@ def main(prompt):
     for clothing in clothing_items:
         clothing_item = clothing.get("item")
         texture_query = clothing.get("texture_query")
+        use_ai_generation = clothing.get("use_ai_generation", False)
+        ai_prompt = clothing.get("ai_prompt", "")
 
         if not clothing_item or not texture_query:
             print(f"Invalid clothing item or texture query: {clothing}")
@@ -115,6 +256,7 @@ def main(prompt):
 
         print(f"Processing Clothing Item: {clothing_item}")
         print(f"Texture Query: {texture_query}")
+        print(f"Use AI Generation: {use_ai_generation}")
 
         # Step 2: Find the .mhmat file for the clothing item
         element_path = os.path.join(SCRIPT_DIR, "data", "clothes", clothing_item)
@@ -143,19 +285,13 @@ def main(prompt):
         print(f"Diffuse texture file name: {texture_name}")
         texture_file = os.path.join(SCRIPT_DIR, "output", "textures", texture_name)
 
-        # Step 4: Search Unsplash for a new texture
-        new_texture_url = search_unsplash(texture_query)
-        if not new_texture_url:
-            print(f"No suitable texture found on Unsplash for query: {texture_query}")
-            continue
-
-        # Step 5: Replace the old texture with the new one
-        replace_texture_file(texture_file, new_texture_url)
+        # Step 4: Process texture generation (AI or Unsplash)
+        process_texture_generation(clothing_item, texture_query, use_ai_generation, ai_prompt, texture_file)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python texture-grabing.py \"<prompt>\"")
-        print("Example: python texture-grabing.py \"I want a purple texture for the shirt and a denim texture for the pants.\"")
+        print("Example: python texture-grabing.py \"I want a purple silk texture for the shirt and a denim texture for the pants.\"")
         sys.exit(1)
 
     user_prompt = sys.argv[1]
