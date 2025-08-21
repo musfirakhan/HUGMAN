@@ -9,7 +9,6 @@ A 3D character generation system that creates animated human models from text de
 - **OS**: Windows 11
 - **GPU**: NVIDIA GeForce RTX 4060 (or compatible CUDA-capable GPU)
 - **RAM**: 8GB minimum, 16GB recommended
-- **Storage**: 8GB free space
 
 ## Prerequisites
 
