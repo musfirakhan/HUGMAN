@@ -2,7 +2,35 @@
 
 **H**umanoid **U**nderstanding and **G**eneration via **M**ultimodal **A**I and **N**LP
 
-A 3D character generation system that creates animated human models from text descriptions using AI and 3D modeling.
+A multimodal AI-driven framework that automates humanoid character generation and animation from natural language descriptions. By combining parametric modeling, curated asset retrieval, and generative texture synthesis, the system achieves a balance between reliability, interpretability, and scalability, producing animation-ready humanoids in under two minutes.
+
+## Overview
+
+HUGMAN transforms text descriptions into fully animated 3D human characters through an integrated pipeline that leverages:
+
+- **Parametric Modeling**: Precise character generation using MakeHuman's parametric system
+- **AI-Powered Asset Retrieval**: Intelligent clothing and accessory selection
+- **Generative Texture Synthesis**: High-quality texture generation via Stable Diffusion
+- **Motion Generation**: Seamless animation creation using MoMask text-to-motion
+- **Real-time Processing**: Complete pipeline execution in under 2 minutes
+
+The integration of MoMask further extends the pipeline to motion generation, validating its applicability for interactive and real-time contexts.
+
+## Examples
+
+### Character Generation Examples
+
+**Prompt 1**: "Create a man wearing working attire with purple patterned texture"
+![Working Attire Character](docs/images/working_attire_character.png)
+
+**Prompt 2**: "An Indian woman wearing black saree"
+![Saree Character](docs/images/saree_character.png)
+
+### Animation and Retargeting Pipeline
+
+Retargeted character animation obtained by mapping BVH motion data onto the character rig for **prompt: A cool teen-age girl walking slowly**
+
+![Animation Retargeting](docs/images/animation_retargeting.png)
 
 ## System Requirements
 
@@ -94,7 +122,14 @@ HUGMAN/
 ollama pull llama3.2
 ```
 
-### 6. Configure Blender Path
+### 6. Install Rokoko Studio Plugin for Blender
+For motion capture and animation retargeting, install the Rokoko Studio plugin for Blender:
+
+1. Visit the official Rokoko Studio plugin installation guide: https://support.rokoko.com/hc/en-us/articles/4410463492241-Install-the-Blender-plugin
+2. Follow the instructions to install the plugin in your Blender installation
+3. The plugin enables seamless integration between Rokoko Studio and Blender for motion capture workflows
+
+### 7. Configure Blender Path
 Update the Blender path in `hugman.py`:
 ```python
 run_blender(r"C:\Program Files\Blender Foundation\Blender 2.82\blender.exe", action_prompt)
@@ -176,4 +211,12 @@ This project uses **Hugging Face** libraries for AI model integration.
 Texture generation powered by **Stable Diffusion** models through Hugging Face diffusers.
 
 - **Repository**: https://github.com/CompVis/stable-diffusion
+
+## Support
+
+If you need any help with setup, usage, or encounter any issues, feel free to contact me:
+
+- **Email**: musfiraaslam3@gmail.com
+
+I'm happy to help with any questions or problems you might encounter while using HUGMAN!
 

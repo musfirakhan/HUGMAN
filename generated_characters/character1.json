@@ -1,24 +1,24 @@
 {
-    "name": "john",
-    "gender": 1,
+    "name": "rani",
+    "gender": 0,
     "age": 0.6,
-    "weight": 0.7,
+    "weight": 0.5,
     "muscle": 0.5,
-    "height": 0.4,
-    "caucasian": 0.8,
-    "african": 0,
-    "asian": 0.2,
-    "skin": "middleage_asian_male",
+    "height": 0.5,
+    "caucasian": 0,
+    "african": 1,
+    "asian": 0,
+    "skin": "middleage_african_female",
     "clothes": [
-        "male_worksuit01"
+        "female_elegantsuit01"
     ],
     "shoes": "black_slipons",
-    "hair": "short03",
+    "hair": "afro_hair_ponytail",
     "eyes": "low-poly",
-    "eyebrow": "eyebrow004",
-    "eyelash": "eyelashes02",
+    "eyebrow": "eyebrow002",
+    "eyelash": "eyelashes03",
     "teeth": "teeth_base",
     "tongue": "tongue01",
     "skeleton": "game_engine",
-    "export_path": "output/john.fbx"
+    "export_path": "output/rani.fbx"
 }

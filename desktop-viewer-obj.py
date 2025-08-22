@@ -52,4 +52,4 @@ def view_model(model_path):
 
     # app.exec_() 
 
-view_model("output/yuna.obj")
+view_model("output/rani.obj")

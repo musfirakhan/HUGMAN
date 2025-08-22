@@ -7,6 +7,9 @@ from PIL import Image
 import ollama
 import re
 
+# Help PyTorch reduce fragmentation on CUDA
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 # Try to import Stable Diffusion dependencies, but make them optional
 STABLE_DIFFUSION_AVAILABLE = False
 try:
@@ -47,22 +50,54 @@ def initialize_stable_diffusion():
     if stable_diffusion_pipeline is None:
         try:
             print("Initializing Stable Diffusion ControlNet...")
+            
+            # Check if CUDA is available
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            print(f"Using device: {device}")
+            
             controlnet_model = ControlNetModel.from_pretrained(
                 "lllyasviel/sd-controlnet-canny",
-                torch_dtype=torch.float16
+                torch_dtype=torch.float16 if device == "cuda" else torch.float32
             )
             
             stable_diffusion_pipeline = StableDiffusionControlNetPipeline.from_pretrained(
                 "runwayml/stable-diffusion-v1-5",
                 controlnet=controlnet_model,
-                torch_dtype=torch.float16
-            ).to("cuda")
+                torch_dtype=torch.float16 if device == "cuda" else torch.float32
+            ).to(device)
             
-            print("Stable Diffusion initialized successfully!")
+            # Reduce VRAM usage
+            try:
+                stable_diffusion_pipeline.enable_attention_slicing()
+                stable_diffusion_pipeline.enable_vae_slicing()
+                stable_diffusion_pipeline.enable_vae_tiling()
+                # Prefer CPU/offload and xFormers if available
+                stable_diffusion_pipeline.enable_sequential_cpu_offload()
+                try:
+                    stable_diffusion_pipeline.enable_xformers_memory_efficient_attention()
+                except Exception:
+                    pass
+            except Exception:
+                pass
+            
+            print(f"Stable Diffusion initialized successfully on {device}!")
         except Exception as e:
             print(f"Error initializing Stable Diffusion: {e}")
             return False
     return True
+
+# Add a better prompt builder
+def build_prompts(texture_query: str):
+	base_prompt = (
+		f"{texture_query},  fabric/material texture "
+		"micro-detail, high-frequency detail, neutral studio lighting, photorealistic, 4k, "
+		"no logos, no text, no watermark"
+	)
+	negative_prompt = (
+		"blurry, lowres, noisy, artifacts, watermark, text, logo, seams, stitches, wrinkles, folds, perspective, "
+		"shadows, people, hands, 3d render, cartoon, illustration, stylized"
+	)
+	return base_prompt, negative_prompt
 
 def generate_texture_with_stable_diffusion(image_path, texture_query, output_path):
     """Generate texture using Stable Diffusion ControlNet"""
@@ -80,41 +115,73 @@ def generate_texture_with_stable_diffusion(image_path, texture_query, output_pat
         input_image = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
         height, width = input_image.shape[:2]
         
-        # Create edge detection for ControlNet
+        # Auto-Canny edge detection (no masking)
         gray = cv2.cvtColor(input_image, cv2.COLOR_RGB2GRAY)
-        edges = cv2.Canny(gray, 100, 200)
+        v = np.median(gray)
+        lower = int(max(0, (1.0 - 0.33) * v))
+        upper = int(min(255, (1.0 + 0.33) * v))
+        edges = cv2.Canny(gray, lower, upper)
+        # Thicken edges to strengthen ControlNet conditioning
+        try:
+            kernel = np.ones((3, 3), np.uint8)
+            edges = cv2.dilate(edges, kernel, iterations=1)
+        except Exception:
+            pass
         
-        # Create a mask for the entire image (or specific regions)
-        mask = np.ones((height, width), dtype=np.uint8) * 255
+        # Build prompts
+        prompt, negative_prompt = build_prompts(texture_query)
         
-        # Apply mask to edges
-        edges = cv2.bitwise_and(edges, mask)
+        # Determine device
+        device = "cuda" if torch.cuda.is_available() else "cpu"
         
-        # Prepare prompt for texture generation
-        prompt = f"high quality {texture_query} texture, detailed fabric pattern, realistic material, 4K, seamless"
-        negative_prompt = "blurry, low quality, plain color, cartoon, illustration, watermark, text"
+        # Downscale generation to reduce VRAM usage
+        target_max = 384  # reduce for 8GB cards; try 256 if OOM persists
+        scale = min(target_max / max(height, width), 1.0)
+        gen_h = int(round(height * scale))
+        gen_w = int(round(width * scale))
+        gen_h = max(256, (gen_h // 8) * 8)
+        gen_w = max(256, (gen_w // 8) * 8)
+        
+        # Resize control image for generation and ensure RGB
+        control_img = Image.fromarray(edges).convert("RGB").resize((gen_w, gen_h), Image.BICUBIC)
         
         # Generate texture
-        generator = torch.Generator(device="cuda").manual_seed(42)
-        
+        generator = torch.Generator(device=device).manual_seed(42)
         output = stable_diffusion_pipeline(
             prompt,
-            image=Image.fromarray(edges),
+            image=control_img,
             negative_prompt=negative_prompt,
             generator=generator,
-            num_inference_steps=30,
-            controlnet_conditioning_scale=0.8,
-            height=height,
-            width=width
+            num_inference_steps=20,
+            guidance_scale=5.5,
+            controlnet_conditioning_scale=0.9,
+            height=gen_h,
+            width=gen_w
         ).images[0]
+        
+        # Upscale back to original texture size
+        output = output.resize((width, height), Image.BICUBIC)
         
         # Save the generated texture
         output.save(output_path)
         print(f"Generated texture saved to: {output_path}")
+        
+        # Free VRAM if on CUDA
+        try:
+            if device == "cuda":
+                torch.cuda.empty_cache()
+        except Exception:
+            pass
+        
         return True
         
     except Exception as e:
         print(f"Error generating texture with Stable Diffusion: {e}")
+        try:
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            pass
         return False
 
 def clean_llm_json_response(json_str):
@@ -235,10 +302,11 @@ def main(prompt):
     # Step 1: Use LLaMA to analyze the prompt
     llama_result = analyze_prompt_with_llama(prompt)
 
-    if not llama_result or not llama_result.get("answer"):
-        print("No texture demand identified or LLaMA response is incomplete.")
+    if not llama_result:
+        print("LLaMA response is incomplete.")
         return
-
+        
+    # Check if we have clothing items to process, regardless of the "answer" field
     clothing_items = llama_result.get("clothing_items", [])
     if not clothing_items:
         print("No clothing items identified in the prompt.")
