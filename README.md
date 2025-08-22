@@ -8,7 +8,7 @@ A multimodal AI-driven framework that automates humanoid character generation an
 
 HUGMAN transforms text descriptions into fully animated 3D human characters through an integrated pipeline that leverages:
 
-- **Parametric Modeling**: Precise character generation using MakeHuman's parametric system
+- **Parametric Modeling**: Precise character generation using parametric system
 - **AI-Powered Asset Retrieval**: Intelligent clothing and accessory selection
 - **Generative Texture Synthesis**: High-quality texture generation via Stable Diffusion
 - **Motion Generation**: Seamless animation creation using MoMask text-to-motion
