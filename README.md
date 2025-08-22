@@ -37,7 +37,6 @@ Retargeted character animation obtained by mapping BVH motion data onto the char
 - **OS**: Windows 11
 - **GPU**: NVIDIA GeForce RTX 4060 (or compatible CUDA-capable GPU)
 - **RAM**: 8GB minimum, 16GB recommended
-- **Storage**: 8GB free space
 
 ## Prerequisites
 
