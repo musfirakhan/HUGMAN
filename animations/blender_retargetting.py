@@ -1,3 +1,20 @@
+"""
+HUGMAN Blender Retargeting
+==========================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This script handles animation retargeting in Blender for HUGMAN characters.
+    It loads BVH animations and retargets them to character rigs using Rokoko
+    addon, then exports the final animated models in GLB format.
+
+Version: 1.0.0
+Last Updated: 2025
+"""
+
 import bpy
 from mathutils import Vector
 import os

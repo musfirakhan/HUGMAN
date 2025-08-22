@@ -1,3 +1,20 @@
+"""
+HUGMAN Texture Generator
+========================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This script generates custom textures for HUGMAN characters using AI models.
+    It uses Stable Diffusion / Unsplash to create clothing textures based on
+    text descriptions and applies them to character models.
+
+Version: 1.0.0
+Last Updated: 2025
+"""
+
 import os
 import sys
 import json

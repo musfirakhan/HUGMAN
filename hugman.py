@@ -1,4 +1,21 @@
-# FOR DESKTOP
+"""
+HUGMAN Main Pipeline Runner
+===========================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This is the main pipeline runner for HUGMAN (Humanoid Understanding and Generation via 
+    Multimodal AI and NLP) system. It orchestrates the complete workflow from text description
+    to animated 3D character generation.
+
+
+Version: 1.0.0
+Last Updated: 2025
+"""
+
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import trimesh

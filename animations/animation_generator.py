@@ -1,7 +1,19 @@
 #!/usr/bin/env python3
 """
-Animation Generator for HUGMAN
-With proper conda environment activation and verification
+HUGMAN Animation Generator
+=========================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This script generates BVH animations for HUGMAN characters using MoMask.
+    It manages conda environments, directory setup, and animation generation
+    with proper error handling and cleanup.
+
+Version: 1.0.0
+Last Updated: 2025
 """
 
 import os

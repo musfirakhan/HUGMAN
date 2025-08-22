@@ -1,3 +1,20 @@
+"""
+HUGMAN Text-to-Animation Pipeline
+================================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This script orchestrates the text-to-animation pipeline for HUGMAN characters.
+    It analyzes text descriptions for actions, generates BVH animations using MoMask,
+    and retargets them to character models using Blender.
+
+Version: 1.0.0
+Last Updated: 2025
+"""
+
 import os
 import json
 import sys

@@ -1,3 +1,25 @@
+"""
+Character Creator Script for HUGMAN
+==================================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This script is part of the HUGMAN (Humanoid Understanding and Generation via 
+    Multimodal AI and NLP) system. It provides automated character creation and 
+    parameter application capabilities for MakeHuman integration.
+    
+    The script reads character parameters from JSON configuration files generated
+    by the HUGMAN AI pipeline and applies them to create fully customized 3D human
+    characters with clothing, accessories, and proper rigging for animation.
+
+
+Version: 1.0.0
+Last Updated: 2025
+"""
+
 import os
 import sys
 import importlib.util

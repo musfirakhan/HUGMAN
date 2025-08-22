@@ -1,3 +1,20 @@
+"""
+HUGMAN Parameter Generator
+=========================
+
+Author: Musfira Aslam
+Email: musfiraaslam3@gmail.com
+GitHub: https://github.com/musfirakhan
+
+Description:
+    This script generates character parameters for HUGMAN using LLM and fashion model.
+    It converts text descriptions into detailed character specifications including
+    physical attributes, clothing, accessories, and export settings.
+
+Version: 1.0.0
+Last Updated: 2025
+"""
+
 import ollama
 import json
 import os
@@ -328,7 +345,7 @@ def save_character_json(character_data, filename="character1.json"):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python llm.py \"description here\"")
+        print("Usage: python parameter_generator.py \"description here\"")
         sys.exit(1)
 
     description = sys.argv[1]
