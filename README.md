@@ -211,7 +211,7 @@ Texture generation powered by **Stable Diffusion** models through Hugging Face d
 
 - **Repository**: https://github.com/CompVis/stable-diffusion
 
-## Support
+## Help and Support
 
 If you need any help with setup, usage, or encounter any issues, feel free to contact me:
 
