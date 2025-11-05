@@ -1,6 +1,8 @@
 # HUGMAN
 
 **H**umanoid **U**nderstanding and **G**eneration via **M**ultimodal **A**I and **N**LP
+
+
 __Note: Incooporating Advanced LLMs right now in order to get better outputs from fashion model__
 
 A multimodal AI-driven framework that automates humanoid character generation and animation from natural language descriptions. By combining parametric modeling, curated asset retrieval, and generative texture synthesis, the system achieves a balance between reliability, interpretability, and scalability, producing animation-ready humanoids in under two minutes.
